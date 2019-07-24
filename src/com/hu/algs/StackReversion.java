@@ -26,7 +26,7 @@ public class StackReversion {
         //下面相当于取出stack里的第一个object，暂存，然后继续向下取
         Object lastEle = popFirstElement(objectStack);
         reverse(objectStack);
-        // 知道取到最后一个，然后开始从后向前一个个往stack里push
+        // 直到取到最后一个，然后开始从后向前一个个往stack里push
         // 是利用了递归的回调和暂存的机制来改变顺序的
         objectStack.push(lastEle);
     }
