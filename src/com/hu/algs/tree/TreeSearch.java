@@ -1,5 +1,14 @@
 package com.hu.algs.tree;
 
+import com.hu.algs.linkedlist.Node;
+import com.sun.source.tree.Tree;
+
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.Stack;
 
 public class TreeSearch {
@@ -93,6 +102,49 @@ public class TreeSearch {
             nodes.push(node);
         }
 
+    }
+
+
+    // 根据先序遍历和中序遍历 重构出二叉树
+    public TreeNode preMidToTree(int[] preOrder, int[] midOrder) {
+        if (preOrder == null)
+            return null;
+        TreeNode head = null;
+        List<Integer> preList = toList(preOrder);
+        List<Integer> midLIst = toList(midOrder);
+
+        head = preIn(preList, 0, preList.size() - 1, midLIst, 0, midLIst.size() - 1);
+
+
+        return head;
+    }
+
+    public TreeNode preIn(List<Integer> preList, int firstPre, int childLength,
+                          List<Integer> midList, int firstMid, int lastMid) {
+
+        if (childLength == 0)
+            return null;
+        int nodeValue = preList.get(firstPre);
+        TreeNode node = new TreeNode(nodeValue);
+        int midPos = midList.indexOf(nodeValue);
+
+        int leftChildLength = midPos - firstMid;
+        int rightChildLength = lastMid - midPos;
+
+        node.left = preIn(preList, firstPre + 1, leftChildLength,
+                midList, firstMid, midPos - 1);
+        node.right = preIn(preList, firstPre + leftChildLength + 1, rightChildLength,
+                midList, midPos + 1, midPos + rightChildLength);
+
+        return node;
+    }
+
+    public List<Integer> toList(int[] array) {
+        List<Integer> list = new ArrayList<>();
+        for (int ele : array) {
+            list.add(ele);
+        }
+        return list;
     }
 }
 
