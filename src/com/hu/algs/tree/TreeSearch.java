@@ -119,6 +119,12 @@ public class TreeSearch {
         return head;
     }
 
+    /**
+     * 重点就是--
+     * 1. 先序遍历的结果的第一个数一定是根【假设是 A
+     * 2. 中序遍历的结果中，A的左边一定是左子树，A的右边一定是右子树
+     * 于是可以以此类推，不断在子树中找到子树的根节点
+     */
     public TreeNode preIn(List<Integer> preList, int firstPre, int childLength,
                           List<Integer> midList, int firstMid, int lastMid) {
 
